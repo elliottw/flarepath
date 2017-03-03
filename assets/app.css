@@ -6,3 +6,8 @@ body {
 h1 {
     color: blue;
 }
+
+ul.graph {border: 1px solid #aeaeae; background-color: #eaeaea; float:left;/*should be clearfix'd instead*/}
+.graph li {width: 8px; height: 50px; margin: 2px;float:left;position:relative;}
+.graph li+li {margin-left:0;}
+.graph span {position:absolute; right:0;bottom:0;left:0;background-color: #aeaeae;}

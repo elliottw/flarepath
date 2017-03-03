@@ -1,13 +1,29 @@
 (page "index.html")
 
-(defc text-input "")
+(defc income "1000")
+(defc rent "500")
 (html
   (head
     (link :href "app.css" :rel "stylesheet" :type "text/css"))
   (body
-     (input
-      :type "text"
-      :placeholder "Type something here"
-      :value text-input
-      :keyup #(reset! text-input @%))
-     (p (text "Value of text input: ~{text-input}"))))
+   (h1 "income")
+   (input
+    :type "text"
+    :placeholder "Type something here"
+    :value income
+    :keyup #(reset! income @%))
+   (p (text "Value of text input: ~{income}"))
+   (p "rent")
+   (input
+    :type "text"
+    :placeholder "Type something here"
+    :value rent
+    :keyup #(reset! rent @%))
+   (p (text "Value of text input: ~{rent}"))
+   (ul (map #(li (cell= (* (- income rent) %))) (range 1 13)))
+   (ul :class "graph"
+     (li (span :style "height:45%"))
+     (li (span :style "height:12%"))
+     (li (span :style "height:32%"))
+     (li (span :style "height:87%"))
+     (li (span :style "height:05%")))))
