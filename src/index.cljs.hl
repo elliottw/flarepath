@@ -1,29 +1,56 @@
 (page "index.html")
 
 (defc income "1000")
-(defc rent "500")
+(defc expense "500")
+(defc bar "10")
+(defc bl "10")
+(def burn (map #(cell= (* (- income expense) %)) (range 1 13)))
 (html
   (head
     (link :href "app.css" :rel "stylesheet" :type "text/css"))
   (body
-   (h1 "income")
+   (map #(p %) burn)
+   (map #(p (/ % 100.0)) burn)
+   (p "income")
+   (p (apply max burn))
    (input
     :type "text"
     :placeholder "Type something here"
     :value income
     :keyup #(reset! income @%))
    (p (text "Value of text input: ~{income}"))
-   (p "rent")
+   (p "expense")
    (input
     :type "text"
     :placeholder "Type something here"
-    :value rent
-    :keyup #(reset! rent @%))
-   (p (text "Value of text input: ~{rent}"))
-   (ul (map #(li (cell= (* (- income rent) %))) (range 1 13)))
+    :value expense
+    :keyup #(reset! expense @%))
+   (p (text "Value of text input: ~{expense}"))
+   (input
+    :type "text"
+    :placeholder "Type something here"
+    :value bl
+    :keyup #(reset! bl @%))
+   (p (text "Value of text input: ~{bl}"))
+
+   ;; process inputs
+
+   ;; display
+   ;; (ul (map #(li (cell= %)) burn))
+   (ul :class "graph" (map #(li (span :style (cell= (apply str "height:" (/ % (apply max burn)) "%")))) burn))
    (ul :class "graph"
-     (li (span :style "height:45%"))
-     (li (span :style "height:12%"))
+     (li (span :style (cell= (apply str "height:" bl "%"))))
+     (li (span :style "height:92%"))
+     (li (span :style "height:95%"))
+     (li (span :style "height:95%"))
+     (li (span :style "height:95%"))
+     (li (span :style "height:95%"))
+     (li (span :style "height:95%"))
+     (li (span :style "height:95%"))
+     (li (span :style "height:95%"))
      (li (span :style "height:32%"))
-     (li (span :style "height:87%"))
-     (li (span :style "height:05%")))))
+     (li (span :style "height:37%"))
+     (li (span :style "height:95%")))
+
+
+   ))
