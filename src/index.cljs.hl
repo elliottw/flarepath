@@ -5,12 +5,17 @@
 (defc bar "10")
 (defc bl "10")
 (def burn (map #(cell= (* (- income expense) %)) (range 1 13)))
+;;(def burnp (map #(* 100 (/ (deref %) (deref (apply max burn)))) burn))
+
+(def burnp (map #(cell= (* 100 (/ % (cell= (apply max burn))))) burn))
 (html
   (head
     (link :href "app.css" :rel "stylesheet" :type "text/css"))
   (body
-   (map #(p %) burn)
-   (map #(p (/ % 100.0)) burn)
+   (map #(p %) burnp)
+   (cell= (print (deref (first burn))))
+;;   (loop-tpl :bindings [b burn]
+;;             (p b)))
    (p "income")
    (p (apply max burn))
    (input
@@ -37,7 +42,9 @@
 
    ;; display
    ;; (ul (map #(li (cell= %)) burn))
-   (ul :class "graph" (map #(li (span :style (cell= (apply str "height:" (/ % (apply max burn)) "%")))) burn))
+   (ul :class "graph" (map #(li (span :style (cell= (apply str "height:" % "%")))) burnp))
+   (cell= (print burn))
+   (cell= (print burnp))
    (ul :class "graph"
      (li (span :style (cell= (apply str "height:" bl "%"))))
      (li (span :style "height:92%"))
